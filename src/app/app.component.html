@@ -1,0 +1,651 @@
+<!-- Hauptcontainer -->
+<div class="containers-wrapper">
+
+    <!-- Input Container -->
+    <div class="overall-container-input">
+  
+        <!-- Base data Container -->
+        <div class="container base-data-container">
+            <h2 class="block-heading">
+                Basic information                
+                <span [matTooltip]="tooltipText1" 
+                class="info-icon">
+                    <span class="info-circle"> i </span>
+                </span>
+            </h2>    
+  
+            <div class="grid-container2">
+                
+            <div class="title">Industry Sector</div>
+            <div class="content2">
+                <mat-form-field appearance="fill">
+                    <mat-label>Select your Industry</mat-label>
+                    <mat-select [formControl]="industryControl">
+                        <mat-option value="Biofuels">Biofuels</mat-option>
+                        <mat-option value="Cement">Cement</mat-option>
+                        <mat-option value="Chemicals">Chemicals</mat-option>
+                        <mat-option value="Hydrogen /Ammonia /Fertilizer">Hydrogen /Ammonia /Fertilizer</mat-option>
+                        <mat-option value="Iron & Steel">Iron & Steel</mat-option>
+                        <mat-option value="Methanol Production">Methanol Production</mat-option>
+                        <mat-option value="Natural Gas Processing">Natural Gas Processing</mat-option>
+                        <mat-option value="Oil Refining">Oil Refining</mat-option>
+                        <mat-option value="Power/Heat Generation">Power/Heat Generation</mat-option>
+                        <mat-option value="Others">Others</mat-option>                        
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            
+              <div class="title">Country</div>
+              <div class="content1">
+                <mat-form-field appearance="fill">
+                    <mat-label>Select your Country</mat-label>
+                    <mat-select [formControl]="regionControl">
+                        <mat-option *ngFor="let option of regions" [value]="option">{{ option }}</mat-option>
+                    </mat-select>
+                </mat-form-field>                
+              </div>
+            
+              <div class="title">Currency</div>
+              <div class="content3">
+                  <mat-form-field appearance="fill">
+                      <mat-select [formControl]="currencyControl">
+                          <mat-option value="AUD">AUD</mat-option>
+                          <mat-option value="CAD">CAD</mat-option>
+                          <mat-option value="CHF">CHF</mat-option>
+                          <mat-option value="CNY">CNY</mat-option>
+                          <mat-option value="DKK">DKK</mat-option>
+                          <mat-option value="EUR">EUR</mat-option>
+                          <mat-option value="GBP">GBP</mat-option>
+                          <mat-option value="JPY">JPY</mat-option>
+                          <mat-option value="NZD">NZD</mat-option>
+                          <mat-option value="SEK">SEK</mat-option>
+                          <mat-option value="USD">USD</mat-option>
+                  </mat-select>
+                  </mat-form-field>
+              </div>
+        
+              <div class="title"></div>
+
+          
+          </div>
+  
+          </div>
+  
+  
+          <div class="separator"></div>
+  
+        <!-- Equipment data Container -->
+        <div class="container equipment_data">
+
+            <h2 class="block-heading">
+                Operating figures
+                <span [matTooltip]="tooltipText2" 
+                class="info-icon">
+                    <span class="info-circle"> i </span>
+                </span>
+            </h2>  
+
+            <div class="grid-container-pricing">
+
+  
+  
+                <div class="title">Lifetime</div>
+                  <div class="content_value_equipment">
+                      <input 
+                          type="number" 
+                          class="equipment_values input-placeholder" 
+                          [formControl]="lifetimeControl" 
+                          (focus)="removePlaceholder($event)" 
+                          (blur)="adjustlifetime($event); addPlaceholder($event)"
+                          (input)="validateNumberInput($event)"> 
+                      <span class="unit">years</span>
+                 </div>
+  
+                 <div class="title">Operation hours p.a.</div>
+                 <div class="content_value_equipment">
+                   <input 
+                     type="number" 
+                     class="equipment_values input-placeholder" 
+                     [formControl]="op_hoursControl"
+                     (focus)="removePlaceholder($event)"
+                     (blur)="adjustOpHours($event); addPlaceholder($event)"
+                     [matTooltip]="operatingHoursError || ''"
+                     matTooltipClass="error-tooltip"
+                     [matTooltipDisabled]="!operatingHoursError"
+                     (input)="validateNumberInput($event)">
+                   <span class="unit">hours</span>
+                 </div>
+  
+  
+                 <div class="title">Install year</div>
+                 <div class="content_value_equipment">
+                   <input 
+                     type="number" 
+                     class="equipment_values input-placeholder" 
+                     [formControl]="yearControl" 
+                     (focus)="removePlaceholder($event)" 
+                     (blur)="adjustYear($event); addPlaceholder($event)"
+                     (input)="validateNumberInput($event)">
+                 </div> 
+            </div>
+  
+        </div>
+  
+        <div class="separator"></div>
+  
+        <!-- Container for CO2 basis data -->
+        <h2 class="overall-heading">
+            CO<sub>2</sub> figures
+            <span [matTooltip]="tooltipText3" class="info-icon">
+                <span class="info-circle"> i </span>
+            </span>
+        </h2>
+        <div class="container">
+            <div class="left-column">
+                <div class="content">
+                    <div class="title_use_case">Type of CO<sub>2</sub> transport</div>
+                    <div class="custom-radio-group">
+                        <label class="custom-radio" [ngClass]="{'bold-label': transportControl.value == 'Shipping'}">
+                            <input type="radio" name="useCase" value="Shipping" [formControl]="transportControl">
+                            <span class="custom-radio-button"></span>
+                            Shipping
+                        </label>
+                        <label class="custom-radio" [ngClass]="{'bold-label': transportControl.value == 'Pipeline'}">
+                            <input type="radio" name="useCase" value="Pipeline" [formControl]="transportControl">
+                            <span class="custom-radio-button"></span>
+                            Pipeline (supercritical)
+                        </label>
+                        <label class="custom-radio" [ngClass]="{'bold-label': transportControl.value == 'Pipelineg'}">
+                            <input type="radio" name="useCase" value="Pipelineg" [formControl]="transportControl">
+                            <span class="custom-radio-button"></span>
+                            Pipeline (gaseous)
+                        </label>
+                    </div>
+                </div>                
+            </div>
+            <div class="right-column">
+                <!-- Slider captured CO2 mtpa p.a. -->
+                <div class="slider-container" id="slider1-container">
+                    <div class="term-container">
+                        <span class="slider-term">Captured CO<sub>2</sub> p.a.</span>
+                    </div>
+                    <div class="slider-content">
+                        <span class="min-value">{{ minValue1 }}</span>
+                        <input type="range" [(ngModel)]="sliderValue1" min="{{ minValue1 }}" max="{{ maxValue1 }}" step="0.1" class="slider" (ngModelChange)="onSliderChange($event, 'slider1')">
+                        <span class="max-value">{{ maxValue1 }}</span>
+                        <input type="number" [(ngModel)]="sliderValue1" min="{{ minValue1 }}" max="{{ maxValue1 }}" class="value-field" (ngModelChange)="onInputChange($event, 'slider1')" (input)="validateNumberInput($event)">
+                        <span class="unit-f">mtpa</span>
+                    </div>
+                </div>
+
+                <!-- CO2 content in exhaust gas -->
+                <div class="slider-container" id="slider2-container">
+                    <div class="term-container">
+                        <span class="slider-term">CO<sub>2</sub> content in exhaust gas</span>
+                    </div>
+                    <div class="slider-content">
+                        <span class="min-value">{{ minValue2 }}</span>
+                        <input type="range" [(ngModel)]="sliderValue2" min="{{ minValue2 }}" max="{{ maxValue2 }}" step="1" class="slider" (ngModelChange)="onSliderChange($event, 'slider2')">
+                        <span class="max-value">{{ maxValue2 }}</span>
+                        <input type="number" [(ngModel)]="sliderValue2" min="{{ minValue2 }}" max="{{ maxValue2 }}" class="value-field" (ngModelChange)="onInputChange($event, 'slider2')" (input)="validateNumberInput($event)">
+                        <span class="unit-f">%</span>
+                    </div>
+                </div>
+
+                <!-- CO2 capture rate -->
+                <div class="slider-container" id="slider3-container">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="content_storage">
+            <div class="title_storage_site">Distance to CO<sub>2</sub> storage site</div>
+            <div class="content_value_equipment horizontal-layout">
+              <input 
+                type="number" 
+                class="equipment_values-Q input-placeholder" 
+                [formControl]="storageControl" 
+                (focus)="removePlaceholder($event)" 
+                (blur)="adjustheatdemand($event); addPlaceholder($event)" 
+                (input)="validateNumberInput($event)">
+              <span class="unit">km</span>
+            </div>
+        </div>  
+        <div class="separator"></div>
+  
+  
+  
+        <!-- Pricing Container -->
+        <div class="container equipment_data">
+
+            <h2 class="block-heading">
+                Financial figures
+                <span [matTooltip]="tooltipText5" 
+                class="info-icon">
+                    <span class="info-circle"> i </span>
+                </span>
+            </h2>    
+            <div class="main-grid-container">
+
+                <!-- Erster Abschnitt: CO2 Price, Electricity Price, Discount Rate -->
+                <div class="grid-container-pricing">
+                    <!-- Titels für CO2 Price, Electricity Price und Discount Rate -->
+                    <div class="grid-item-title">CO<sub>2</sub> price/ tax credit</div>
+                    <div class="grid-item-title">Electricity price</div>
+                    <div class="grid-item-title">Discount rate</div>
+            
+                    <!-- Eingabefelder für CO2 Price, Electricity Price und Discount Rate -->
+                    <div class="grid-item-input">
+                        <input 
+                            #co2PriceInput
+                            type="number" 
+                            class="equipment_values input-placeholder" 
+                            [formControl]="co2_priceControl" 
+                            (focus)="removePlaceholder($event)" 
+                            (blur)="addPlaceholder($event)"
+                            (input)="validateNumberInput($event)">
+                        <span class="unit-ff">{{symbol}}/t CO<sub>2</sub></span>
+                    </div>
+            
+                    <div class="grid-item-input">
+                        <input 
+                            #elPriceInput
+                            type="number" 
+                            class="equipment_values input-placeholder" 
+                            [formControl]="el_priceControl" 
+                            (focus)="removePlaceholder($event)" 
+                            (blur)="addPlaceholder($event); validateElPrice()"
+                            (input)="validateNumberInput($event)">
+                        <span class="unit-ff">{{symbol}}/MWh<sub>el</sub></span>
+                    </div>
+            
+                    <div class="grid-item-input">
+                        <input 
+                            type="number" 
+                            class="equipment_values input-placeholder" 
+                            [formControl]="discount_rate_Control" 
+                            (focus)="removePlaceholder($event)" 
+                            (blur)="addPlaceholder($event)"
+                            (input)="validateNumberInput($event)">
+                        <span class="unit-ff">%</span>
+                    </div>
+                </div>
+            
+                <!-- Zweiter Abschnitt: Include Subsidies -->
+                <div class="grid-container-subsidies">
+
+                    <!-- Include subsidies? und Radio Buttons -->
+                    <div class="grid-item-title">Include subsidies</div>
+
+                    <div class="grid-item-radio">
+                        <div class="custom-radio-group-horizontal">
+                            <label class="custom-radio" [ngClass]="{'bold-label': subsidy_control.value == 'No'}">
+                                <input type="radio" name="useCases" value="No" [formControl]="subsidy_control">
+                                <span class="custom-radio-button"></span>
+                                No
+                            </label>
+                            <label class="custom-radio" [ngClass]="{'bold-label': subsidy_control.value == 'Yes'}">
+                                <input type="radio" name="useCases" value="Yes" [formControl]="subsidy_control">
+                                <span class="custom-radio-button"></span>
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Subsidy amount, nur anzeigen wenn 'Yes' ausgewählt ist -->
+                    <div *ngIf="subsidy_control.value === 'Yes'" class="grid-item-input">
+                        <div class="input-container">
+                            <input 
+                                type="number" 
+                                class="subsidy_values" 
+                                [formControl]="subsidyamount_Control">
+                            <span class="unit-ff">mio. {{symbol}}</span>
+                        </div>
+                    </div>                    
+                </div>
+            
+            </div>
+            
+        </div>
+
+
+        <div class="separator"></div>
+
+        <!-- CO2 Compression Technology Container -->
+
+        <div class="toggle-container">
+            <h2 class="overall-heading">
+                CO<sub>2</sub> compression technology
+                <span [matTooltip]="tooltipText6" class="info-icon">
+                    <span class="info-circle"> i </span>
+                </span>
+            </h2>
+            <mat-slide-toggle
+            [(ngModel)]="compressionToggle"
+            color="primary"
+            labelPosition="before"
+            class="compression-toggle">
+            </mat-slide-toggle>
+        </div>
+        
+        <div class="container compression" *ngIf="compressionToggle">
+
+            <div class="title_compression">For economic efficiency, consider the following technology:
+            </div>
+
+            <div class="content_value_equipment">
+                <div class="custom-radio-group-horizontal">
+                    <label class="custom-radio" [ngClass]="{'bold-label': compression_control.value == 'Inline'}">
+                        <input type="radio" name="useCases2" value="Inline" [formControl]="compression_control">
+                        <span class="custom-radio-button"></span>
+                        Inline compressor
+                    </label>
+                    <label class="custom-radio" [ngClass]="{'bold-label': compression_control.value == 'Gear type compressor'}">
+                        <input type="radio" name="useCases2" value="Gear type compressor" [formControl]="compression_control">
+                        <span class="custom-radio-button"></span>
+                        Gear type compressor
+                    </label>
+
+                </div>
+            </div>
+            <!-- Hier die Checkbox hinzufügen -->
+            <div class="compare-compression">
+                <label class="custom-checkbox">
+                    <input type="checkbox" name="compareCompression" [formControl]="compare_control">
+                    <span class="custom-checkbox-box"></span>
+                    Compare compression technologies
+                </label>
+            </div>            
+
+        </div>
+
+        <div class="separator"></div>
+
+
+        <!-- Sensitivity Analysis Container -->
+        <h2 class="block-heading sensitivity-heading">
+            Sensitivity Analysis
+            <span [matTooltip]="tooltipText6" class="info-icon">
+                <span class="info-circle"> i </span>
+            </span>
+            <mat-slide-toggle
+                [(ngModel)]="sensitivityToggle"
+                color="primary"
+                labelPosition="before"
+                class="sensitivity-toggle">
+            </mat-slide-toggle>
+        </h2>
+        <div class="container sensitivity-analysis" *ngIf="sensitivityToggle">
+            <div class="grid-container-sensitivity">
+                <div class="sensitivity-item">
+                    <div class="title">Sensitivity Element</div>
+                    <div class="content">
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Select element</mat-label>
+                            <mat-select [formControl]="sensitivityElementControl">
+                                <mat-option value="CAPEX">CAPEX</mat-option>
+                                <mat-option value="CO2 Price">CO<sub>2</sub> price/ tax credit</mat-option>
+                                <mat-option value="Electricity Price">Electricity price</mat-option>
+                                <mat-option value="Energy demand">Energy demand</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="sensitivity-item">
+                    <div class="title">Sensitivity Range</div>
+                    <div class="content">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select range</mat-label>
+                            <mat-select [formControl]="sensitivityRangeControl">
+                                <mat-option value="5">+/- 5%</mat-option>
+                                <mat-option value="10">+/- 10%</mat-option>
+                                <mat-option value="15">+/- 15%</mat-option>
+                                <mat-option value="20">+/- 20%</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Button -->
+        <div class="calculate-button-container">
+            <button (click)="calculate()" mat-raised-button color="primary" class="calculate-button">Calculate</button>
+            
+        </div>
+  
+        <!-- Spinner -->
+        <div class="spinner-overlay" *ngIf="loading">
+            <img src="assets/mole3.gif" alt="Loading Dragon" class="loading-dragon">
+        </div>
+
+        <div class="spinner-overlay" *ngIf="loading_pdf">
+            <img src="assets/loading_gear.gif" alt="Loading Dragon" class="loading-gear">
+        </div>
+        
+          
+  
+    </div>
+
+    <!-- Wrapper für die Ergebnis-Container -->
+    <div class="result-wrapper" *ngIf="!loading && calculateClicked && showResults">
+
+        <mat-tab-group>
+
+            <mat-tab label="Results" >
+                <!-- Results Container -->
+                <div *ngIf="!loading && showResults" #resultsContainer class="container-results">
+                    <!-- Inhalt des Results Containers -->
+                    <h2 class="block-heading">
+                        Results
+                    </h2>
+
+                    <p class="savings-description">
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.  
+                    </p>
+                        <div class="results-container">
+                            <div class="result-row">
+                                <div class="result-label">You will achieve these results with your project:</div>
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">Your payback time will be in</div>
+                                <div class="result-value">            
+                                    <span *ngIf="calculateClicked && ((paybackMin ?? 0) > (lifetimeControl.value ?? 0) && (paybackMax ?? 0) > (lifetimeControl.value ?? 0) || (paybackMin ?? 0) < 0 || (paybackMax ?? 0) < 0)">
+                                        ∞
+                                </span>
+                                <span *ngIf="calculateClicked && !((paybackMin ?? 0) > (lifetimeControl.value ?? 0) && (paybackMax ?? 0) > (lifetimeControl.value ?? 0) || (paybackMin ?? 0) < 0 || (paybackMax ?? 0) < 0)">
+                                    {{ paybackMin }} – {{ paybackMax }}
+                                </span></div>
+                                <div class="result-unit">years</div>
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">You will achieve an ROI of</div>
+                                <div class="result-value">            
+                                    <span *ngIf="calculateClicked && ((paybackMin ?? 0) > (lifetimeControl.value ?? 0) && (paybackMax ?? 0) > (lifetimeControl.value ?? 0) || (paybackMin ?? 0) < 0 || (paybackMax ?? 0) < 0)">
+                                        N/A
+                                </span>
+                                <span *ngIf="calculateClicked && !((paybackMin ?? 0) > (lifetimeControl.value ?? 0) && (paybackMax ?? 0) > (lifetimeControl.value ?? 0) || (paybackMin ?? 0) < 0 || (paybackMax ?? 0) < 0)">
+                                    {{ roiMin }} – {{ roiMax }}
+                                </span></div>
+                                <div class="result-unit">%</div>
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">Levelized cost of CO<sub>2</sub> (LCOC) ranges between</div>
+                                <div class="result-value">{{ lcocMin }} – {{ lcocMax }}</div>
+                                <div class="result-unit">{{previousSymbol}}/t CO<sub>2</sub></div>
+                            </div>
+                        </div>
+
+            
+                        <div class="chart-container">
+                            <mat-tab-group>
+                                <mat-tab label="Discounted Cash Flow">
+                                  <div class="chart-container">
+                                    <app-cash-flow-chart
+                                      [cash_flows_lifetime]="results.cash_flows_lifetime"
+                                      [payback]="results.Payback_Period"
+                                      [lifetimeControl]="results.lifetime"
+                                      [symbol]="symbol">
+                                    </app-cash-flow-chart>
+                                  </div>
+                                </mat-tab>
+                                
+                                <mat-tab label="Sankey Diagram">
+                                  <div class="chart-container">
+                                    <app-sankey-chart
+                                      [cumulative_OPEX]="results.cumulative_OPEX"
+                                      [cumulative_O_M]="results.cumulative_O_M"
+                                      [cumulative_T_S]="results.cumulative_T_S"
+                                      [capex_without_subsidy]="results.capex_without_subsidy"
+                                      [cumulative_revenue]="results.cumulative_revenue"
+                                      [subsidy]="results.subsidy">
+                                    </app-sankey-chart>
+                                  </div>
+                                </mat-tab>
+                              </mat-tab-group>
+                              
+                        </div>
+
+                        <div class="result-row">
+                            <div class="link">
+                                Further information on our assumptions can be found 
+                                <a href="https://ens.dk/sites/ens.dk/files/Analyser/technology_data_for_carbon_capture_transport_and_storage.pdf" target="_blank" class="custom-link">here</a>.
+                            </div>
+
+                        </div>
+                        <!-- Download PDF Button -->
+                        <div class="result-row">
+                            <button mat-raised-button color="primary" (click)="disableButtonTemporarily(); downloadPDF()">
+                                Download PDF
+                            </button>
+                        </div>
+                </div>
+            </mat-tab>
+
+            <!-- Zweiter Tab: Compression Comparison, angezeigt wenn Marker gesetzt -->
+            <mat-tab label="Compression Comparison" *ngIf="showCompressionTab">
+                <div *ngIf="!loading && showResults&& calculateClicked" #resultsContainer class="container-compression-comparison">
+                    <div class="results-container">
+                        <h2 class="block-heading">Compression comparison</h2>
+                        <p>Here you can compare different compression technologies based on your inputs.</p>
+                            <div class="result-row">
+                                <div class="result-label">Compared to inline compressors, gear compressors can achieve the following results:</div>
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">Reduced power</div>
+                                <div class="result-value">- {{ effiency_compression }}</div>
+                                <div class="result-unit">%</div>
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">Over your lifetime, you have a cost benefit of </div>
+                                <div class="result-value">{{ compression_cost_benefit }}</div>
+                                <div class="result-unit">mio. {{previousSymbol}}</div>
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">Estimated gear compressor type: </div>
+                                <div class="result-value_compressor">{{ RG_framesize }}</div>
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">Estimated inline compressor type: </div>
+                                <div class="result-value_compressor">{{ RB_framesize }}</div>
+                            </div>
+
+                        <!-- Hier kannst du die Vergleichsdaten hinzufügen -->
+                        <app-compression-technology
+                            [RB_flow]="results.RB_flow"
+                            [RG_flow]="results.RG_flow">
+                        </app-compression-technology>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Sensitivity Analysis"  *ngIf="sensitivityVisible">
+                <!-- Result Sensitivity Container -->
+                <div *ngIf="!loading && showResults && sensitivityVisible" #resultsContainer class="container-result-sensitivity">
+
+                    <!-- Inhalt des Sensitivity Containers -->
+                    <h2 class="block-heading">
+                        Sensitivity analysis
+                    </h2>
+                    <p class="savings-description">
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.  
+                    </p>
+                        <div class="results-container">
+                            <div class="result-row">
+                                <div class="result-label">Parameter variation</div>
+                                <div class="result-value3">
+                                    <span *ngIf="sensitivityElementControl.value === 'CO2 Price'">
+                                        - {{ sensitivityRangeControl.value }}%
+                                    </span>
+                                    <span *ngIf="sensitivityElementControl.value !== 'CO2 Price'">
+                                        + {{ sensitivityRangeControl.value }}%
+                                    </span>
+                                </div>
+                                <div class="result-value3">
+                                    <span *ngIf="sensitivityElementControl.value === 'CO2 Price'">
+                                        + {{ sensitivityRangeControl.value }}%
+                                    </span>
+                                    <span *ngIf="sensitivityElementControl.value !== 'CO2 Price'">
+                                        - {{ sensitivityRangeControl.value }}%
+                                    </span>
+                                </div>
+                                <div class="result-unit">variation</div>
+                            </div>
+                            
+                            <div class="result-row">
+                                <div class="result-label">Impact on payback time</div>
+                                <div class="result-value1">
+                                    {{ payback_period_sensi_upper === 0 ? '-' : (payback_period_sensi_upper > 30 ? '∞' : '+' + payback_period_sensi_upper) }}
+                                </div>                                
+                                <div class="result-value2">    {{ payback_period_sensi_lower === 0 ? '-' : payback_period_sensi_lower }}</div>
+                                <div class="result-unit">years</div> 
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">Impact on ROI (absolut)</div>
+                                <div class="result-value1">  {{ roi_sensi_lower === 0 ? '-' : (payback_period_sensi_upper > 30 ? 'N/A' : roi_sensi_lower) }}</div>
+                                <div class="result-value2">    {{ roi_sensi_upper === 0 ? '-' : '+' + roi_sensi_upper }}</div>
+                                <div class="result-unit">%</div>
+                            </div>
+                            <div class="result-row">
+                                <div class="result-label">Impact on Levelized cost of CO<sub>2</sub> (LCOC)</div>
+                                <div class="result-value1">+ {{ lcoc_sensi_upper }}</div>
+                                <div class="result-value2"> {{ lcoc_sensi_lower }}</div>                       
+                                <div class="result-unit">{{previousSymbol}}/t CO<sub>2</sub></div>
+                            </div>
+                        </div>
+                        
+                
+                            <h3 class="sub-heading">
+                                Discounted cashflow
+                            </h3>
+
+
+                        <div class="chart-container">
+                
+                            <app-cash-flow-chart
+                            [cash_flows_lifetime]="results.cash_flows_lifetime"
+                            [payback]="results.Payback_Period"
+                            [lifetimeControl]="results.lifetime"
+                            [sensitivity_results]="results.sensitivity_results"
+                            [symbol]="symbol">
+                            </app-cash-flow-chart>
+
+                                
+                        </div>  
+
+
+                </div>
+
+            </mat-tab>
+
+        </mat-tab-group>
+
+    </div>
+
+</div>
+  
