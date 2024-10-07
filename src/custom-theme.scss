@@ -1,0 +1,70 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the custom pink palette
+$custom-pink: (
+  50: #ffe6f0,
+  100: #ffb3c9,
+  200: #ff80a1,
+  300: #ff4d7a,
+  400: #ff265e,
+  500: rgb(40, 186, 218),
+  600: #cc0041,
+  700: #b3003b,
+  800: #990034,
+  900: #80002d,
+  A100: #ffb3c9,
+  A200: #ff80a1,
+  A400: #ff265e,
+  A700: #ff0041,
+  contrast: (
+    50: mat.get-contrast-color-from-palette(mat.$pink-palette, 50),
+    100: mat.get-contrast-color-from-palette(mat.$pink-palette, 100),
+    200: mat.get-contrast-color-from-palette(mat.$pink-palette, 200),
+    300: mat.get-contrast-color-from-palette(mat.$pink-palette, 300),
+    400: mat.get-contrast-color-from-palette(mat.$pink-palette, 400),
+    500: mat.get-contrast-color-from-palette(mat.$pink-palette, 500),
+    600: mat.get-contrast-color-from-palette(mat.$pink-palette, 600),
+    700: mat.get-contrast-color-from-palette(mat.$pink-palette, 700),
+    800: mat.get-contrast-color-from-palette(mat.$pink-palette, 800),
+    900: mat.get-contrast-color-from-palette(mat.$pink-palette, 900),
+    A100: mat.get-contrast-color-from-palette(mat.$pink-palette, A100),
+    A200: mat.get-contrast-color-from-palette(mat.$pink-palette, A200),
+    A400: mat.get-contrast-color-from-palette(mat.$pink-palette, A400),
+    A700: mat.get-contrast-color-from-palette(mat.$pink-palette, A700),
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Heat_Pump_App-primary: mat.define-palette(mat.$indigo-palette);
+$Heat_Pump_App-accent: mat.define-palette($custom-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Heat_Pump_App-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$Heat_Pump_App-theme: mat.define-light-theme((
+  color: (
+    primary: $Heat_Pump_App-primary,
+    accent: $Heat_Pump_App-accent,
+    warn: $Heat_Pump_App-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($Heat_Pump_App-theme);
