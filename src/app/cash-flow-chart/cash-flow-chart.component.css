@@ -1,0 +1,38 @@
+/* X-Achse */
+.x.axis path,
+.x.axis line {
+  stroke: black !important; /* Färbt die X-Achse in Schwarz */
+  stroke-width: 2 !important; /* Macht die Linie dicker */
+}
+
+/* Y-Achse */
+.y.axis path,
+.y.axis line {
+  stroke: black !important; /* Färbt die Y-Achse in Schwarz */
+  stroke-width: 2 !important; /* Macht die Linie dicker */
+}
+  /* Selektiere die Referenzlinie und ändere die Strichstärke */
+line.ref-line {
+  stroke-width: 3px; /* Dicke der Linie */
+  stroke-dasharray: 5, 5; /* Gepunktete Linie */
+  stroke: black; /* Farbe der Referenzlinie */
+}
+
+.y-axis-label {
+  font-size: 12px;
+  font-family: Arial;
+  position: absolute;
+  transform: rotate(-90deg);  /* Dreht den Text */
+  transform-origin: left center;  /* Ankerpunkt für Rotation */
+  top: 50%;  /* Zentriert den Titel vertikal */
+  white-space: nowrap;
+  margin-right: 0;  /* Entfernt zusätzlichen Abstand */
+}
+
+.x-axis-label {
+  font-size: 12px;
+  margin-top: 5px;
+  text-align: center;
+  font-family: Arial;
+
+}
